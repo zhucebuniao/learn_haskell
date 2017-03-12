@@ -1,0 +1,52 @@
+# Type and Typeclass  
+## 一、Type
+类型首字母必须大写
+1. Int:有界,与机器的位数有关
+2. Integer:无界
+3. Float:单精度
+4. Double:双精度
+5. Bool
+6. Char 
+```
+eg:
+addThree :: Int -> Int -> Int -> Int
+addThree x y z = x + y + z  
+
+factorial :: Integer -> Integer
+factorial n = product [1..n]
+```
+## 二、Type variables
+类型变量，与泛型很像
+```
+:t head
+head :: [a] -> a
+a可以是任何型别
+```
+## 三、Typeclass
+
+1. 型别定义行为的接口，如果某一个型别属于某Typeclass，那么他必须实现了该Typeclass所描述的行为
+2. 与Java中的interface相似 
+  ``` 
+  eg:
+  :t (==)  
+  (==) :: (Eq a) => a -> a ->Bool  
+  => 符号左边的即是型别约束
+  ```
+* * *
+### 几个基本的Typeclass:
+1. Eq：包含可判断相等性的型别,提供实现的函数是==和/=  
+2. Ord：包含可比较大小的型别,提供<,>,<=,>=之类的函数;compare函数返回GT/LT/EQ三种型别的比较结果  
+3. Show：Show的成员为可用字符串表示的型别,除函数以外的所有型别都是Show的成员;最常用的是show函数
+4. Read：与Show相反的Typeclass;read函数可以将字符串转换为Read的某成员型别
+5. Enum：Enum的成员都是连续的型别，也就是可枚举;Enum存在的主要好处就在于可以在Range中用到它的成员型别  
+  该Typeclass包含的型别有:(),Bool,Char,Ordering,Int,Integer,Float,Double
+6. Bounded：Bounded的成员型别都有一个上限和下限;提供minBounded、maxBounded函数
+7. Num：表示数字的Typeclass,它的成员型别都具有数字的特征;Num包含所有的数字
+8. Integral：仅包含整数,其成员型别有Int、Integer
+9. Floating：仅包含浮点型:Float、Double
+* tips
+```
+fromIntegral函数  
+其型别声明为:fromIntegral :: (Num b, Integral a) => a -> b.  
+它取一个整数做参数并回传一个更加通用的数字，这在同时处理整数和浮点时会尤为有用
+``` 

@@ -57,7 +57,10 @@ boomBangs xs = [if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x, x /= 11] -
 productLists = [x * y * z | x <- [2..5], y <- [3,4,7], z <- [5,9], x * y * z > 50]
 length' xs = sum [1 | _ <- xs]
 removeNonUppercase str = [c | c <- str, c `elem` ['A'..'Z']]
+
+-------------------------------------------
 -- 嵌套List
+-------------------------------------------
 nestedList xxs = [[x | x <- xs, even x] | xs <- xxs]
 nestedEg = 
     [
