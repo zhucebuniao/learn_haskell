@@ -38,9 +38,32 @@ numLongChains = length (filter isLong (map chain [1..100]))
     where isLong xs = length xs > 15
 -- lambda方式
 numLongChains' :: Int
-numLongChains = length (filter (\xs -> length xs > 15) (map chain [1..100]))
+numLongChains' = length (filter (\xs -> length xs > 15) (map chain [1..100]))
 
 funList :: Num a => [a] -> [a -> a]
 funList xs = map (*) xs 
 funListTest = last (funList [1..10]) 5
 funListTest2 = ((funList [1..10]) !! 3) 5
+
+-- map lambda
+lamadaTest = map (\(a,b) -> a + b) [(1,2),(2,3)]
+
+-- foldl
+sum' :: Num a => [a] -> a
+sum' = foldl (+) 0
+sum'' :: Num a => [a] -> a
+sum'' = foldl1 (+)
+
+-- foldMap
+foldMap' :: Foldable t => ([a] -> a) -> t [a] -> [a]
+foldMap' f xs = foldr (\acc x -> f x : acc) [] xs
+-- foldMap'' :: (a -> b) -> [a] -> [b]
+foldMap'' f xs = foldl (\x acc -> acc ++ [f x]) [] xs
+
+-- $
+sumFilterMap = sum (filter (>10) (map (*2) [2..10]))
+sumFilterMap' = sum $ filter (>10) $ map (*2) [2..10]
+
+-- 函数组合
+mapNegate = map (\x -> negate (abs x)) [1,2,-3,4,-6]
+mapNegate' = map (negate . abs) [1,2,-3,4,-6]
